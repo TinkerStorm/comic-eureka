@@ -1,0 +1,19 @@
+@include "_main"
+
+img {
+  height: 100%;
+  width: auto;
+}
+
+body {
+  min-height: 100vh;
+}
+
+footer {
+  bottom: 0;
+  width: 100%;
+}
+
+nav:has( .breadcrumb:-moz-only-whitespace) {
+  display: none;
+}

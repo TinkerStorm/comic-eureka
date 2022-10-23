@@ -1,0 +1,71 @@
+---
+layout: default
+---
+
+{%- include injection/context.html -%}
+
+{% comment %}
+- authors: list of authors
+  - name: string
+  - url: URL
+  - avatar: Image target / URL
+- source:
+  - type: string
+  - pages: key-value pairs
+    - [label]: URL
+- slides: list of pages (or an object a `caption`ed `asset`)
+  - caption: string
+  - asset: string
+    * Purpose of entry can vary depending on the provided source type.
+{% endcomment %}
+
+<div id="comicCarousel" class="carousel slide container" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    {% for slide in page.slides %}
+      <button type="button" data-bs-target="#comicCarousel" data-bs-slide-to="{{ forloop.index0 }}"{% if forloop.first %}class="active" {% endif %} aria-current="true" aria-label="Page {{ forloop.index }}"></button>
+    {% endfor %}
+  </div>
+  <div class="carousel-inner">
+    {% for slide in page.slides %}
+      <div class="carousel-item{% if forloop.first %} active{% endif %}">
+        {% comment %}
+        If ~.asset exists, then ~.asset is the target - other properties may be available
+
+        ~
+        ~.caption
+          $
+          ~.title
+          ~.content
+        {% endcomment %}
+        {% if page.source.type == 'twitter' %}
+          {% assign prefix = 'https://pbs.twimg.com/media/' %}
+          {% assign suffix = '?format=jpg&name=medium' %}
+        {% endif %}
+        {% if slide.caption %}
+          <img src="{{ slide.asset | prepend: prefix | append: suffix }}" class="d-block w-100 img-fluid" alt="{{ slide.caption.title | default: slide.caption }}">
+          <div class="carousel-caption d-none d-md-block">
+            {% if caption.title %}
+              <h5>{{ slide.caption.title }}</h5>
+              <p>{% if slide.caption.content %}{{ slide.caption.content }} - {% endif %}Page {{ forloop.index }} of {{ page.slides.size }}</p>
+            {% else %}
+              <p>{% if slide.caption %}{{ slide.caption }} - {% endif %}Page {{ forloop.index }} of {{ page.slides.size }}</p>
+            {% endif %}
+          </div>
+        {% else %}
+          <img src="{{ slide | prepend: prefix | append: suffix }}" class="d-block w-100" alt="Page {{ forloop.index }}">
+          <div class="carousel-caption d-none d-md-block">
+            <p>Page {{ forloop.index }} of {{ page.slides.size }}</p>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#comicCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#comicCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>

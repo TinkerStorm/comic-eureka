@@ -1,0 +1,52 @@
+---
+layout: none
+---
+
+- site
+  - time
+  - pages: Page[]
+  - static_files: StaticFile[]
+  - html_pages: Page[]
+  - html_files: StaticFile[]
+  - collections: Collection[]
+  - data: Record<string, any>
+  - documents: Document[]
+  - url: string
+  - [CONFIG_KEY]: any
+- page
+  - content: string
+  - title: string
+  - excerpt: string
+  - url: string
+  - date: string
+  - id: string
+  - collection: string
+  - dir: string
+  - name: string
+  - path: string
+  - next?: Page
+  - previous?: Page
+- layout
+  - [key]: any
+- content
+
+---
+
+- <collection>
+  - label
+  - docs
+  - files
+  - relative_directory
+  - directory
+  - output: boolean
+  ---
+  - title?: string
+
+- <document>
+  - content
+  - output
+  - path
+  - relative_path
+  - url
+  - collection
+  - date

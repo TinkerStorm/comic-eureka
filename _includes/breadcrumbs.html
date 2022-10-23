@@ -1,0 +1,29 @@
+{% comment %}
+- [url]: string = page.url
+- [divider]: string = '/'
+
+! Derived from sudojunior/journey
+! https://github.com/sudojunior/journey/blob/main/_includes/util/breadcrumbs.html
+{% endcomment %}
+{%- include injection/context.html -%}
+{%- assign split_url = include.url | default: page.url | split: "/" -%}
+<nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '{{ include.divider | default: '/' }}';">
+  <ol class="breadcrumb">
+  {% for item in split_url %}
+    {% if item == "" or item == "index" %}{% continue %}{% endif %}
+    {% assign target_url = split_url | slice: 0, forloop.index | join: '/' | relative_url %}
+    {% if split_url[forloop.index] == 'index' or split_url[forloop.index] == 'index.html' %}
+      <li class="breadcrumb-item active" aria-current="page">
+        {{ item }}
+      </li>
+      {% break %}
+    {% else %}
+      <li {% unless forloop.last %}class="breadcrumb-item"{% else %}class="breadcrumb-item active" aria-current="page"{% endunless %}>
+        <span>
+          {% unless forloop.last %}<a href="{{ target_url }}">{{ item }}</a>{% else %}{{ item }}{% endunless %}
+        </span>
+      </li>
+    {% endif %}
+  {% endfor %}
+  </ol>
+</nav>

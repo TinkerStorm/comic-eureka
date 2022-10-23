@@ -1,0 +1,43 @@
+title: Comic Eureka
+# baseurl: /comic-eureka
+
+repo: TinkerStorm/comic-eureka
+
+collections_dir: ./collections
+
+sass:
+  implementation: sassc
+  style: compact
+  sass_dir: _sass
+  line_comments: false
+  sourcemap: always
+
+liquid:
+  error_mode: strict
+  strict_filters: true
+  strict_variables: false
+
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:path
+    styles:
+      "code, code:has(.highlighter-rouge, .highlighter-crimson)":
+        "color": "crimson"
+  pages:
+    output: true
+    permalink: /:path
+  # Comic Collections
+
+
+defaults:
+  - scope:
+      path: ""
+      type: collection/chapter
+    values:
+      layout: chapter
+      output: true
+
+metadata:
+  title: Comic Eureka
+  description: 

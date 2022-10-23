@@ -1,0 +1,43 @@
+{%- comment -%}
+- [path]: string
+  * The path of the target variable.
+- [type]?: string
+  * The type of the target variable.
+  * If not provided, it won't be used.
+- [level]: number = 3
+  * The level of the header to render.
+- [color]: string = "crimson"
+  * The color of the header to render.
+  * If not provided, it will default to crimson (provided by the `_docs` collection style injection, otherwise it's black as default).
+- [link]: string
+  * A link to reference with the `path` variable.
+  * If provided, this must be a valid URL.
+---
+
+Elements rendered by this snippet can by directly linked to from the url (`~.path`).
+{%- endcomment -%}
+
+{%- assign level = include.level | default: 3 -%}
+{%- assign color = include.color | default: "crimson" -%}
+
+<h{{ level }} id="{{ include.path }}">{{ "" -}}
+  <code class="langauge-plaintext highlighter-{{ color }}">
+    {{- include.path | escape -}}
+  </code>
+  {%- if include.type -%}
+    <span class="d-none d-md-inline">
+      {{- " : " -}}
+      <code class="langauge-plaintext highlighter-{{ color }}">
+        {{- include.type | escape -}}
+      </code>
+    </span>
+  {%- endif %}
+  {% if include.link %}
+    <span class="d-none d-md-inline">
+      {{ "-" }}
+      <a href="{{ include.link }}" class="text-decoration-none" style="font-size: smaller" target="_blank" rel="noopener noreferrer">
+        {{ include.link | split: "/" | slice: 2 }}
+      </a>
+    </span>
+  {% endif %}
+</h{{ level }}>

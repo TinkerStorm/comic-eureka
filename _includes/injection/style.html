@@ -1,0 +1,45 @@
+{%- if page.styles %}
+    <!-- Styles Injection (Page) -->
+    <style type="text/css">
+  {%- for rule in page.styles %}
+      {{ rule[0] }} {
+    {%- for property in rule[1] %}
+      {%- if rule[0] contains "@" %}
+        {{ property[0] }} {
+          {% for style_rule in property[1] -%}
+            {{ style_rule[0] }}: {{ style_rule[1] }};
+          {%- endfor %}
+        }
+      {%- else %}
+        {{ property[0] }}: {{ property[1] }};
+      {%- endif -%}
+    {%- endfor %}
+      }
+{%- unless forloop.last %}
+{% endunless %}
+  {% endfor -%}
+    </style>
+{%- endif -%}
+
+{%- if collection.styles %}
+    <!-- Styles Injection (Collection) -->
+    <style type="text/css">
+  {%- for rule in collection.styles %}
+      {{ rule[0] }} {
+    {%- for property in rule[1] %}
+      {%- if rule[0] contains "@" %}
+        {{ property[0] }} {
+          {% for style_rule in property[1] -%}
+            {{ style_rule[0] }}: {{ style_rule[1] }};
+          {%- endfor %}
+        }
+      {%- else %}
+        {{ property[0] }}: {{ property[1] }};
+      {%- endif -%}
+    {%- endfor %}
+      }
+{%- unless forloop.last %}
+{% endunless -%}
+  {% endfor %}
+    </style>
+{%- endif -%}

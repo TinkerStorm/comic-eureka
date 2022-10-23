@@ -1,0 +1,41 @@
+{%- if page.script %}
+    <!-- Scripts Injection (Page) -->
+    <script type="text/javascript">
+  {%- for line in page.script %}
+      {{ line }}
+  {%- endfor -%}
+    </script>
+{%- endif %}
+
+{%- if collection and collection.script %}
+    <!-- Scripts Injection (Collection) -->
+    <script type="text/javascript">
+  {%- for line in collection.script %}
+      {{ line }}
+  {%- endfor %}
+    </script>
+{%- endif %}
+
+    <script type="text/javascript">
+      hljs.highlightAll();
+    </script>
+
+{% comment %}
+page and collection script injections, for example:
+--- # page
+layout: default
+script: |-
+  for (var i = 0; i < 10; i++) {
+    console.log("page", i);
+  }
+---
+
+--- # collection
+collections:
+  my-collection: # ./collections/_my-collection/*
+    script: |-
+      for (var i = 0; i < 10; i++) {
+        console.log("collection", i);
+      }
+---
+{% endcomment %}

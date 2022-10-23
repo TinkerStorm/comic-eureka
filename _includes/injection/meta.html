@@ -1,0 +1,34 @@
+{%- assign seen = "viewport" -%}
+    {% if page.metadata -%}
+    <!-- Metadata Injection (Page) -->
+  {% for pair in page.metadata %}
+    {%- assign key = pair[0] -%}
+    {%- assign value = pair[1] %}
+    {%- unless seen contains key -%}
+      {%- assign seen = seen | append: key | append: " " -%}
+    {%- endunless %}
+    <meta name="{{ key }}" content="{{ value }}">
+  {% endfor -%}
+    {% endif %}
+
+{% if collection.metadata -%}
+    <!-- Metadata Injection (Collection) -->
+  {% for pair in page.metadata %}
+    {%- assign key = pair[0] -%}
+    {%- assign value = pair[1] %}
+    {%- unless seen contains key -%}
+      {%- assign seen = seen | append: key | append: " " -%}
+    {%- endunless %}
+    <meta name="{{ key }}" content="{{ value }}">
+  {% endfor -%}
+{% endif %}
+
+  {%- for pair in site.metadata %}
+    {%- assign key = pair[0] -%}
+    {%- assign value = pair[1] -%}
+    {%- unless seen contains key -%}
+      {%- if value != "" and value != nil %}
+    <meta name="{{ key }}" content="{{ value }}">
+      {%- endif -%}
+    {%- endunless -%}
+  {%- endfor -%}

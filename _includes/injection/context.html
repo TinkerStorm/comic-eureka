@@ -1,0 +1,20 @@
+{% if page.collection %}
+  {% assign collection = site.collections | find: "label", page.collection %}
+  {% assign collection.index = collection.docs %}
+  {% assign collection-root = site[collection.label] | find: "slug", "index" %}
+{% endif %}
+
+{%- capture title -%}
+  {%- if page.title and page.title != 'Index' -%}
+    {{- page.title -}}
+    {%- if collection and collection.title -%}
+      ({{ collection.title }})
+    {%- endif -%}
+    {{- " - " -}}
+    {{- site.title -}}
+  {%- elsif collection and collection.title %}
+    {{- collection.title }} - {{ site.title -}}
+  {%- else -%}
+    {{- site.title -}}
+  {%- endif -%}
+{%- endcapture -%}

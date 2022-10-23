@@ -1,0 +1,17 @@
+---
+layout: page
+---
+{%- include injection/context.html -%}
+
+<h3>Chapters</h3>
+
+<ul>
+{% for entry in collection.docs %}
+  {% if entry.title == 'Index' %}{% continue %}{% endif %}
+  <li>
+    <a href="{{ entry.url | relative_url }}">{{ entry.title }}</a>
+  </li>
+{% endfor %}
+</ul>
+
+{{ content }}

@@ -1,0 +1,14 @@
+# * title: string - The title of the navigation item
+#   url: string - relative path to the page
+#   element_class: string - Adds these classes to the <li> element
+#   link_class: string - Adds these classes to the <a> element
+
+- title: Home
+  url: /
+- title: About
+  url: /about
+- title: Docs
+  url: /docs
+- title: Settings
+  url: /settings
+  link_class: disabled
